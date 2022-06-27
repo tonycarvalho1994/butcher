@@ -1,27 +1,31 @@
-from datetime import timedelta
-
-from app.core.entity.base import BaseEntity
-from app.core.repository import ModelType
+from app.infra.database import get_db
 from app.infra.database.database_abc import DatabaseABC
+from app.core.repository import ObjectReferences, Repositories
+from app.infra.database.query import query_get_plannings, query_get_txfields
 
 
 class Database(DatabaseABC):
-    def get_all(self, model: ModelType):
-        return {
-            model: 'Listing all rows for the given model. Heheheheh'
-        }
+    def get_data(self, model: str, object_id: str, object_reference: str):
+        query_params = {}
+        query = ''
 
-    def get_updated_data(self, datetime_range: timedelta) -> list[BaseEntity] | None:
-        pass
+        match object_reference:
+            case ObjectReferences.PATIENT:
+                query_params.update({'id_patient': object_id})
+            case ObjectReferences.PLANNING:
+                query_params.update({'id_planning': object_id})
+            case _:
+                raise Exception('Invalid object reference. Must be one of ObjectReferences Class')
 
-    def get_created_data(self, datetime_range: timedelta) -> list[BaseEntity] | None:
-        pass
+        match model:
+            case Repositories.PLANNING:
+                query = query_get_plannings(query_params)
+            case Repositories.TX_FIELD:
+                query = query_get_txfields(query_params)
+            case _:
+                raise Exception('Invalid Model. Must be one of Repositories Class')
 
-    def get_single_data(self, model: ModelType, object_id: str):
-        pass
+        db = get_db()
+        result = db.execute(query)
 
-    def create_data(self, model: ModelType, new_data: list[BaseEntity]):
-        pass
-
-    def update_data(self, model: ModelType, new_data: list[BaseEntity]):
-        pass
+        return [row for row in result]

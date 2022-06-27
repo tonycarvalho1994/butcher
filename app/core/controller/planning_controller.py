@@ -1,19 +1,32 @@
-from app.core.entity.physical_planning import PhysicalPlanning
+from app.core.repository import Repositories, ObjectReferences
 from app.core.repository.planning_repository import PlanningRepository
+from app.core.schemas.planning import PhysicalPlanningSchema
 
 
 class PlanningController:
     def __init__(self, repository: PlanningRepository):
         self.repository = repository
 
-    def get_planning_by_id_patient(self, id_patient: str) -> PhysicalPlanning | None:
-        return self.repository.get_data_by_id_patient(id_patient)
+    def get_planning(
+            self,
+            object_id: str,
+            object_reference: str
+    ) -> list[PhysicalPlanningSchema] | None:
+        plannings = self.repository.get_data(
+            model=Repositories.PLANNING,
+            object_id=object_id,
+            object_reference=object_reference
+        )
 
-    def get_planning_by_id_sisac(self, id_sisac: str) -> PhysicalPlanning | None:
-        return self.repository.get_data_by_id_sisac(id_sisac)
+        if not plannings:
+            return None
 
-    def get_planning_by_id_mosaiq(self, id_mosaiq: str) -> PhysicalPlanning | None:
-        return self.repository.get_data_by_id_mosaiq(id_mosaiq)
+        for planning in plannings:
+            field_list = self.repository.get_data(
+                model=Repositories.TX_FIELD,
+                object_id=planning.id_phase,
+                object_reference=ObjectReferences.PLANNING
+            )
+            planning.field_list = field_list
 
-    def get_all_plannings(self) -> list[PhysicalPlanning] | None:
-        return self.repository.get_all_data()
+        return plannings
