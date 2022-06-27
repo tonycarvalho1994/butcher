@@ -12,6 +12,8 @@ class AppSettings:
     APP_HOST = 'localhost'
     APP_PORT = 8000
 
+    ENVIRONMENT = config('ENVIRONMENT', 'DEV')
+
     # Database Settings
     DB_HOST = config('DB_HOST', '0.0.0.0')
     DB_PORT = config('DB_PORT', 5432)
