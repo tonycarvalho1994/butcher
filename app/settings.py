@@ -9,10 +9,11 @@ class AppSettings:
         'name': 'TI Oncoradium',
         'email': 'ti@oncoradium.com.br',
     }
-    APP_HOST = 'localhost'
+    APP_HOST = '0.0.0.0'
     APP_PORT = 8000
 
     ENVIRONMENT = config('ENVIRONMENT', 'DEV')
+    DEBUG_MODE = config('DEBUG_MODE', False)
 
     # Database Settings
     DB_HOST = config('DB_HOST', '0.0.0.0')

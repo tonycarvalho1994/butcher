@@ -22,5 +22,8 @@ if __name__ == '__main__':
     import uvicorn
 
     uvicorn.run(
-        "app.infra.http.fastapi:app", host=AppSettings.APP_HOST, port=AppSettings.APP_PORT, reload=True
+        "app.infra.http.fastapi:app",
+        host=AppSettings.APP_HOST,
+        port=AppSettings.APP_PORT,
+        reload=AppSettings.DEBUG_MODE
     )
