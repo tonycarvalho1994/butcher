@@ -26,6 +26,10 @@ class Database(DatabaseABC):
                 raise Exception('Invalid Model. Must be one of Repositories Class')
 
         db = get_db()
-        result = db.execute(query)
+        cursor = db.execute(query)
+        columns = [column[0] for column in cursor.description]
+        results = []
+        for row in cursor.fetchall():
+            results.append(dict(zip(columns, row)))
 
-        return [row for row in result]
+        return results

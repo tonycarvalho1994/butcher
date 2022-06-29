@@ -51,14 +51,14 @@ WHERE TF.Version = 0
 def query_get_plannings(query_params: dict) -> str:
     if 'id_patient' in query_params:
         query = PLANNING_BASE_QUERY + """
-        AND Pat.IDA = {id_patient}
+        AND Pat.IDA = '{id_patient}'
         """.format(**query_params)
 
         return query
 
     elif 'id_planning' in query_params:
         query = PLANNING_BASE_QUERY + """
-            AND S.SIT_ID = {id_planning}
+            AND S.SIT_ID = '{id_planning}'
             """.format(**query_params)
 
         return query
