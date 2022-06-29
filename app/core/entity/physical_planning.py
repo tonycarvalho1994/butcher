@@ -18,7 +18,6 @@ class PhysicalPlanning(BaseEntity):
             fractions: int,
             create_dt: datetime,
             edit_dt: datetime,
-            version: int,
             **kwargs):
         super().__init__(**kwargs)
         self.patient = patient
@@ -32,4 +31,3 @@ class PhysicalPlanning(BaseEntity):
         self.fractions = fractions
         self.create_dt = create_dt
         self.edit_dt = edit_dt
-        self.version = version

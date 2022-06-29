@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import Literal
 
 
 class Repositories(Enum):
@@ -7,4 +6,6 @@ class Repositories(Enum):
     TX_FIELD: str = 'tx_field'
 
 
-ModelType = Literal[Repositories.PLANNING, Repositories.TX_FIELD]
+class ObjectReferences(Enum):
+    PATIENT: str = 'patient'
+    PLANNING: str = 'planning'
