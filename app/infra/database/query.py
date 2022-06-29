@@ -1,7 +1,7 @@
 PLANNING_BASE_QUERY = """
-SELECT 
+SELECT DISTINCT
     S.SIT_ID as id_phase, 
-    S.Pat_ID1 as id_patient, 
+    Pat.IDA as id_patient, 
     S.Site_Name as anatomic_location,
     CP.Tx_Intent as intent,
     S.Modality as modality,
@@ -21,9 +21,9 @@ WHERE
 """
 
 TXFIELD_BASE_QUERY = """
-SELECT
+SELECT DISTINCT
     TF.FLD_ID as id_field,
-    TF.Pat_ID1 as id_patient,
+    Pat.IDA as id_patient,
     TF.SIT_Set_ID as id_planning,
     TF.Field_Name as name,
     TF.DisplaySequence as number,
@@ -35,7 +35,7 @@ SELECT
     TFP.Coll_Ang as collimator_ang,
     TFP.Couch_Ang as couch_ang,
     TF.Create_DtTm as create_dt,
-    TF.Edit_DtTm as edit_dt,
+    TF.Edit_DtTm as edit_dt
 FROM TxField as TF
 INNER JOIN vw_PatBro_Demographics as Pat
     ON (TF.Pat_ID1 = Pat.Pat_ID1)

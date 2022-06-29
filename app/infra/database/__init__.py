@@ -9,7 +9,6 @@ def get_connection_string() -> str:
 
 def get_db():
     connection_string = get_connection_string()
-    print('Conection String:', connection_string)
     connection = pyodbc.connect(connection_string)
 
     return connection.cursor()
