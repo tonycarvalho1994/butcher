@@ -3,10 +3,12 @@ version: '3.8'
 services:
   app:
     build: .
+    image: tonycarvalho1994/butcher:v1
     command: uvicorn app.infra.http.fastapi:app --host ${APP_HOST}
     volumes:
       - .:/app
     ports:
       - "8000:8000"
-    env_file:
-      - .env
+    environment:
+      - APP_HOST=${APP_HOST}
+      - APP_PORT=${APP_PORT}
