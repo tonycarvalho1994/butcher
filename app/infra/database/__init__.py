@@ -1,3 +1,5 @@
+import pyodbc
+
 from app.settings import AppSettings
 
 
@@ -7,9 +9,7 @@ def get_connection_string() -> str:
 
 
 def get_db():
-    # connection_string = get_connection_string()
-    # connection = pyodbc.connect(connection_string)
-    #
-    # return connection.cursor()
+    connection_string = get_connection_string()
+    connection = pyodbc.connect(connection_string)
 
-    return
+    return connection.cursor()
