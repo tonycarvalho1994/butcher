@@ -16,6 +16,8 @@ RUN pip install -r requirements.txt
 
 COPY ./app ./app
 
+WORKDIR ./app
+
 EXPOSE 8000
 
 CMD ["python", "-m", "app.infra.http.fastapi.__init__"]

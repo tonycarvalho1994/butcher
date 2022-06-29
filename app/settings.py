@@ -9,8 +9,8 @@ class AppSettings:
         'name': 'TI Oncoradium',
         'email': 'ti@oncoradium.com.br',
     }
-    APP_HOST = '0.0.0.0'
-    APP_PORT = 8000
+    APP_HOST = config('APP_HOST', '0.0.0.0')
+    APP_PORT = config('APP_PORT', 8000)
 
     ENVIRONMENT = config('ENVIRONMENT', 'DEV')
     DEBUG_MODE = config('DEBUG_MODE', False)
